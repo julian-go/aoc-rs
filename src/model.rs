@@ -15,4 +15,5 @@ pub struct Outcome {
     pub result: String,
     pub solution: String,
     pub correct: bool,
+    pub elapsed_ms: i32,
 }
