@@ -1,6 +1,7 @@
 mod input;
 mod model;
 mod solvers;
+mod utils;
 
 use std::time::Instant;
 

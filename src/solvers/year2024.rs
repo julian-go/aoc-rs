@@ -1,3 +1,4 @@
 crate::register_days! {
     day01,
+    day10,
 }
