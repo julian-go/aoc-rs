@@ -25,19 +25,23 @@ fn trailhead_score(map: &Map<i64>, pos: Pose) -> i64 {
     let mut queue = VecDeque::new();
     let mut reachable = HashSet::new();
     queue.push_back(pos);
-    while let Some(current) = queue.pop_front() {
-        let Some(current_v) = map.get(current) else {
+    while let Some(current_pos) = queue.pop_front() {
+        let Some(&current_height) = map.get(current_pos) else {
             continue;
         };
-        for adj in current.adjacent() {
-            if let Some(v) = map.get(adj).filter(|&&v| v == current_v + 1) {
-                if *v == 9 {
-                    reachable.insert(adj);
+
+        current_pos
+            .adjacent()
+            .iter()
+            .filter_map(|&adjacent_pos| map.get(adjacent_pos).map(|&height| (adjacent_pos, height)))
+            .filter(|(_, height)| *height == current_height + 1)
+            .for_each(|(adjacent_pos, height)| {
+                if height == 9 {
+                    reachable.insert(adjacent_pos);
                 } else {
-                    queue.push_back(adj);
+                    queue.push_back(adjacent_pos);
                 }
-            }
-        }
+            });
     }
     reachable.len() as i64
 }
