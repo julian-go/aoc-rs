@@ -22,8 +22,8 @@ fn parse(input: &str) -> IResult<&str, (Vec<i32>, Vec<i32>)> {
 pub fn part1(input: &str) -> Result<String, String> {
     let (_, (mut left, mut right)) = parse(input).map_err(|e| e.to_string())?;
 
-    left.sort();
-    right.sort();
+    left.sort_unstable();
+    right.sort_unstable();
 
     let distance: i32 = zip(left, right).map(|p| (p.0 - p.1).abs()).sum();
 

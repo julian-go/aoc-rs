@@ -12,28 +12,39 @@ impl<T> Map<T> {
         x + self.width * y
     }
 
-    pub fn get<P>(&self, pos: P) -> Result<&T, String>
+    pub fn height(&self) -> usize {
+        self.height
+    }
+
+    pub fn width(&self) -> usize {
+        self.width
+    }
+
+    pub fn get<P>(&self, pos: P) -> Option<&T>
     where
-        P: Into<(usize, usize)>,
+        P: Into<(usize, usize)> + Copy,
     {
         let (x, y) = pos.into();
-        if x >= self.width || y >= self.height {
-            Err(format!("Index ({x}, {y}) out of bounds").to_string())
+
+        if x < self.width && y < self.height {
+            let index = self.xy_to_index(x, y);
+            Some(&self.data[index])
         } else {
-            Ok(&self.data[self.xy_to_index(x, y)])
+            None
         }
     }
 
-    pub fn get_mut<P>(&mut self, pos: P) -> Result<&mut T, String>
+    pub fn get_mut<P>(&mut self, pos: P) -> Option<&mut T>
     where
-        P: Into<(usize, usize)>,
+        P: Into<(usize, usize)> + Copy,
     {
         let (x, y) = pos.into();
-        if x >= self.width || y >= self.height {
-            Err(format!("Index ({x}, {y}) out of bounds").to_string())
-        } else {
+
+        if x < self.width && y < self.height {
             let index = self.xy_to_index(x, y);
-            Ok(&mut self.data[index])
+            Some(&mut self.data[index])
+        } else {
+            None
         }
     }
 }
@@ -92,9 +103,9 @@ mod tests {
     fn simple_map() {
         let mut map = Map::<i64>::new(4, 4);
         let value = map.get_mut((1, 1));
-        assert!(value.is_ok());
+        assert!(value.is_some());
         let value = value.unwrap();
         *value += 10;
-        println!("{map:?}")
+        println!("{map:?}");
     }
 }

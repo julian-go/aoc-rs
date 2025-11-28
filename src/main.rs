@@ -40,9 +40,9 @@ fn main() {
         run_last(args.examples_only, &mut results);
     } else if let Some(year) = args.year.map(|y| y.to_string()) {
         if let Some(day) = args.day.map(|d| format!("day{d:02}")) {
-            run_day_in_year(year, day, args.examples_only, &mut results);
+            run_day_in_year(&year, &day, args.examples_only, &mut results);
         } else {
-            run_year(year, args.examples_only, &mut results);
+            run_year(&year, args.examples_only, &mut results);
         }
     } else {
         run_all(args.examples_only, &mut results);
@@ -81,7 +81,7 @@ fn main() {
     println!("{table}");
 }
 
-fn run_year(year_arg: String, example_only: bool, results: &mut Vec<Outcome>) {
+fn run_year(year_arg: &str, example_only: bool, results: &mut Vec<Outcome>) {
     for (year, days) in solvers::YEARS {
         if year_arg == *year {
             for day in *days {
@@ -94,12 +94,7 @@ fn run_year(year_arg: String, example_only: bool, results: &mut Vec<Outcome>) {
     }
 }
 
-fn run_day_in_year(
-    year_arg: String,
-    day_arg: String,
-    example_only: bool,
-    results: &mut Vec<Outcome>,
-) {
+fn run_day_in_year(year_arg: &str, day_arg: &str, example_only: bool, results: &mut Vec<Outcome>) {
     for (year, days) in solvers::YEARS {
         if year_arg == *year {
             for day in *days {

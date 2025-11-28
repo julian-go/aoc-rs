@@ -14,7 +14,7 @@ fn read_to_string(year: &str, day: &str, file: &str) -> std::io::Result<String> 
     )
 }
 
-/// Reads the example files for the given year. If part1_ex.txt does not exist, this returns an error.
+/// Reads the example files for the given year. If `part1_ex.txt` does not exist, this returns an error.
 pub fn get_example(year: &str, day: &str) -> Result<Input, Box<dyn Error>> {
     let part1 = read_to_string(year, day, "part1_ex.txt")?;
     let part2 = read_to_string(year, day, "part2_ex.txt").ok();

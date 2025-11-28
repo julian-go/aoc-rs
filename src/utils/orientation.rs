@@ -1,5 +1,6 @@
 use super::vector::Vector;
 
+#[derive(Clone, Copy, PartialEq, PartialOrd, Eq, Ord, Debug, Hash)]
 pub enum Orientation {
     North,
     East,
@@ -8,7 +9,7 @@ pub enum Orientation {
 }
 
 impl Orientation {
-    pub fn to_vector(&self) -> Vector {
+    pub fn to_vector(self) -> Vector {
         match self {
             Orientation::North => Vector::new(0, -1),
             Orientation::East => Vector::new(1, 0),
@@ -44,7 +45,7 @@ impl Orientation {
         }
     }
 
-    pub fn right(&self) -> Orientation {
+    pub fn right(self) -> Orientation {
         match self {
             Orientation::North => Orientation::East,
             Orientation::East => Orientation::South,
@@ -53,7 +54,7 @@ impl Orientation {
         }
     }
 
-    pub fn left(&self) -> Orientation {
+    pub fn left(self) -> Orientation {
         match self {
             Orientation::North => Orientation::West,
             Orientation::West => Orientation::South,
@@ -62,7 +63,7 @@ impl Orientation {
         }
     }
 
-    pub fn behind(&self) -> Orientation {
+    pub fn behind(self) -> Orientation {
         match self {
             Orientation::North => Orientation::South,
             Orientation::East => Orientation::West,
