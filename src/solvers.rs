@@ -1,5 +1,6 @@
 mod year2019;
 mod year2024;
+mod year2025;
 
 pub type SolveFn = fn(&str) -> Result<String, String>;
 
@@ -9,7 +10,11 @@ pub struct Day {
     pub part2: SolveFn,
 }
 
-pub static YEARS: &[(&str, &[Day])] = &[("2019", year2019::DAYS), ("2024", year2024::DAYS)];
+pub static YEARS: &[(&str, &[Day])] = &[
+    ("2019", year2019::DAYS),
+    ("2024", year2024::DAYS),
+    ("2025", year2025::DAYS),
+];
 
 #[macro_export]
 macro_rules! register_days {

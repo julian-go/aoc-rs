@@ -6,6 +6,8 @@ use nom::{
     multi::{many1, separated_list1},
 };
 
+use std::collections::HashSet;
+
 #[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 enum Color {
     White,
@@ -67,6 +69,36 @@ pub fn part1(input: &str) -> Result<String, String> {
     Ok(possible_designs.to_string())
 }
 
+fn possible_count(
+    count: &mut i64,
+    memo: &mut HashSet<Vec<Pattern>>,
+    index: usize,
+    design: Pattern,
+    patterns: &[Pattern],
+) {
+    // if index >= design.len() {
+    //     *count += 1;
+    //     return;
+    // }
+
+    // let subdesign = &design[index..];
+    // for pattern in patterns {
+    //     if subdesign.starts_with(pattern) {
+    //         possible_count(count, memo, index + pattern.len(), design, patterns);, patterns)
+    //     }
+    // }
+}
+
 pub fn part2(input: &str) -> Result<String, String> {
-    Ok(1.to_string())
+    let (patterns, designs) = parse(input)?;
+    // let memo = HashSet::new();
+    let total_count: i64 = designs
+        .iter()
+        .map(|d| {
+            let mut count = 0;
+            // possible_count(&mut count, d, &patterns);
+            count
+        })
+        .sum();
+    Ok(total_count.to_string())
 }
