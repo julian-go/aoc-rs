@@ -17,18 +17,10 @@ enum Color {
     Green,
 }
 
-type Pattern = Vec<Color>;
+type Pattern = Vec<char>;
 
-fn parse_color(input: &str) -> IResult<&str, Color> {
-    map(one_of("wubrg"), |v| match v {
-        'w' => Color::White,
-        'u' => Color::Blue,
-        'b' => Color::Black,
-        'r' => Color::Red,
-        'g' => Color::Green,
-        _ => unreachable!("one_of only returns wubrg"),
-    })
-    .parse(input)
+fn parse_color(input: &str) -> IResult<&str, char> {
+    one_of("wubrg").parse(input)
 }
 
 fn parse_pattern(input: &str) -> IResult<&str, Pattern> {
@@ -47,7 +39,7 @@ fn parse(input: &str) -> Result<(Vec<Pattern>, Vec<Pattern>), String> {
     Ok((patterns, designs))
 }
 
-type PatternSlice<'a> = &'a [Color];
+type PatternSlice<'a> = &'a [char];
 
 fn possible(rest_design: PatternSlice, patterns: &[Pattern]) -> bool {
     if rest_design.is_empty() {
@@ -90,15 +82,16 @@ fn possible_count(
 }
 
 pub fn part2(input: &str) -> Result<String, String> {
-    let (patterns, designs) = parse(input)?;
+    // let (patterns, designs) = parse(input)?;
     // let memo = HashSet::new();
-    let total_count: i64 = designs
-        .iter()
-        .map(|d| {
-            let mut count = 0;
-            // possible_count(&mut count, d, &patterns);
-            count
-        })
-        .sum();
-    Ok(total_count.to_string())
+    // let total_count: i64 = designs
+    //     .iter()
+    //     .map(|d| {
+    //         let mut count = 0;
+    //         possible_count(&mut count, d, &patterns);
+    //         count
+    //     })
+    //     .sum();
+    // Ok(total_count.to_string())
+    Ok(1.to_string())
 }
