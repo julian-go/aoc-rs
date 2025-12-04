@@ -7,21 +7,21 @@ use nom::{
     multi::{many1, separated_list1},
 };
 
-use crate::utils::{Map, Pose, nom_ext};
+use crate::utils::{Matrix, Pose, nom_ext};
 
-pub fn parse(input: &str) -> IResult<&str, Map<i64>> {
+pub fn parse(input: &str) -> IResult<&str, Matrix<i64>> {
     all_consuming(map_res(
         separated_list1(line_ending, many1(nom_ext::one_digit)),
         |lines| {
             let width = lines.first().map_or(0, std::vec::Vec::len);
             let values = lines.into_iter().flatten().collect();
-            Map::from_vec(width, values)
+            Matrix::from_vec(width, values)
         },
     ))
     .parse(input.trim())
 }
 
-fn trailhead_score(map: &Map<i64>, pos: Pose) -> i64 {
+fn trailhead_score(map: &Matrix<i64>, pos: Pose) -> i64 {
     let mut queue = VecDeque::new();
     let mut reachable = HashSet::new();
     queue.push_back(pos);
@@ -61,7 +61,7 @@ pub fn part1(input: &str) -> Result<String, String> {
     Ok(scores.iter().sum::<i64>().to_string())
 }
 
-fn trailhead_score_distinct(map: &Map<i64>, pos: Pose) -> i64 {
+fn trailhead_score_distinct(map: &Matrix<i64>, pos: Pose) -> i64 {
     let mut queue = VecDeque::new();
     let mut reachable = Vec::new();
     queue.push_back(pos);

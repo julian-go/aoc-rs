@@ -15,6 +15,28 @@ impl Vector {
     pub fn manhattan(&self) -> i64 {
         self.x + self.y
     }
+
+    pub fn cardinal_adjacent(&self) -> [Vector; 4] {
+        [
+            *self + Vector::new(1, 0),
+            *self + Vector::new(0, 1),
+            *self + Vector::new(-1, 0),
+            *self + Vector::new(0, -1),
+        ]
+    }
+
+    pub fn adjacent(&self) -> [Vector; 8] {
+        [
+            *self + Vector::new(1, 0),
+            *self + Vector::new(1, 1),
+            *self + Vector::new(0, 1),
+            *self + Vector::new(-1, 1),
+            *self + Vector::new(-1, 0),
+            *self + Vector::new(-1, -1),
+            *self + Vector::new(0, -1),
+            *self + Vector::new(1, -1),
+        ]
+    }
 }
 
 impl From<Vector> for (usize, usize) {
