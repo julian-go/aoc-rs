@@ -6,4 +6,5 @@ crate::register_days! {
     day05,
     day06,
     day07,
+    day09,
 }
