@@ -8,4 +8,6 @@ crate::register_days! {
     day07,
     day08,
     day10,
+    day11,
+    day12,
 }
